@@ -166,5 +166,16 @@ public class Recipe {
 			return false;
 		return true;
 	}
+
+	@Override
+	public String toString() {
+		StringBuilder builder = new StringBuilder();
+		builder.append("Recipe [id=").append(id).append(", name=").append(name).append(", author=").append(author)
+				.append(", mealtype=").append(mealtype).append(", preparationDuration=").append(preparationDuration)
+				.append(", bakingDuration=").append(bakingDuration).append(", ingredients=").append(ingredients)
+				.append(", creationDate=").append(creationDate).append(", modificationDate=").append(modificationDate)
+				.append("]");
+		return builder.toString();
+	}
 	
 }
