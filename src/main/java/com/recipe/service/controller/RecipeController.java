@@ -58,11 +58,7 @@ public class RecipeController {
 		Recipe foundRecipe = recipeRepository.findOne(id);
 		if(foundRecipe != null) {
 			recipe.setId(foundRecipe.getId());
-			Optional<MealType> mealType = mealTypeRepository.findByName(recipe.getMealtype().getName());
-			if(mealType.isPresent()) {
-				recipe.setMealtype(mealType.get());
-				updatedRecipe = recipeRepository.save(recipe);
-			}
+			updatedRecipe = recipeRepository.save(recipe);
 		}
 		
 		return updatedRecipe;

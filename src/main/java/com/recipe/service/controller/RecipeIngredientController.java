@@ -13,7 +13,6 @@ import org.springframework.web.bind.annotation.RestController;
 import com.google.common.collect.Sets;
 import com.recipe.domain.Ingredient;
 import com.recipe.domain.Recipe;
-import com.recipe.repository.IngredientRepository;
 import com.recipe.repository.RecipeRepository;
 
 @RestController
@@ -22,12 +21,10 @@ public class RecipeIngredientController {
 
 	
 	private final RecipeRepository recipeRepository;
-	private final IngredientRepository ingredientRepository;
 	
 	@Autowired
-	public RecipeIngredientController(RecipeRepository recipeRepository, IngredientRepository ingredientRepository) {
+	public RecipeIngredientController(RecipeRepository recipeRepository) {
 		this.recipeRepository = recipeRepository;
-		this.ingredientRepository = ingredientRepository;
 	}
 	
 	@GetMapping
@@ -41,11 +38,11 @@ public class RecipeIngredientController {
 	}
 	
 	@PutMapping
-	public Recipe updateIngredients(@PathVariable int recipeId, @RequestBody Set<Integer> ingredientIds) {
+	public Recipe updateIngredients(@PathVariable int recipeId, @RequestBody Set<Ingredient> ingredients) {
 		Recipe recipe = recipeRepository.findOne(recipeId);
 		if(recipe != null) {
-			Iterable<Ingredient> ingredients = ingredientRepository.findAll(ingredientIds);
-			recipe.getIngredients().retainAll(Sets.newHashSet(ingredients));
+			recipe.getIngredients().clear();
+			recipe.getIngredients().addAll(Sets.newHashSet(ingredients));
 			return recipeRepository.save(recipe);
 		} else {
 			return null;
