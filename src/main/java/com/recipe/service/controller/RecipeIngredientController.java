@@ -27,25 +27,25 @@ public class RecipeIngredientController {
 		this.recipeRepository = recipeRepository;
 	}
 	
-	@GetMapping
-	public Set<Ingredient> getIngredients(@PathVariable int recipeId) {
-		Recipe recipe = recipeRepository.findOne(recipeId);
-		if(recipe != null) {
-			return recipe.getIngredients();
-		} else {
-			return null;
-		}
-	}
-	
-	@PutMapping
-	public Recipe updateIngredients(@PathVariable int recipeId, @RequestBody Set<Ingredient> ingredients) {
-		Recipe recipe = recipeRepository.findOne(recipeId);
-		if(recipe != null) {
-			recipe.getIngredients().clear();
-			recipe.getIngredients().addAll(Sets.newHashSet(ingredients));
-			return recipeRepository.save(recipe);
-		} else {
-			return null;
-		}
-	}
+//	@GetMapping
+//	public Set<Ingredient> getIngredients(@PathVariable int recipeId) {
+//		Recipe recipe = recipeRepository.findOne(recipeId);
+//		if(recipe != null) {
+//			return recipe.getIngredients();
+//		} else {
+//			return null;
+//		}
+//	}
+//	
+//	@PutMapping
+//	public Recipe updateIngredients(@PathVariable int recipeId, @RequestBody Set<Ingredient> ingredients) {
+//		Recipe recipe = recipeRepository.findOne(recipeId);
+//		if(recipe != null) {
+//			recipe.getIngredients().clear();
+//			recipe.getIngredients().addAll(Sets.newHashSet(ingredients));
+//			return recipeRepository.save(recipe);
+//		} else {
+//			return null;
+//		}
+//	}
 }

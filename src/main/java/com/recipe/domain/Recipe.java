@@ -9,7 +9,6 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
-import javax.persistence.JoinTable;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import javax.persistence.PreUpdate;
@@ -40,12 +39,7 @@ public class Recipe {
 	private Integer bakingDuration;
 	
 	@OneToMany
-	@JoinTable(name="recipeingredient",
-		joinColumns={ @JoinColumn(name = "recipeid", referencedColumnName = "id") },
-		inverseJoinColumns = { @JoinColumn(name = "ingredienid", referencedColumnName = "id", unique = true) }
-	)
-	private Set<Ingredient> ingredients;
-	
+	private Set<RecipeIngredient> ingredients;
 	
 	@Temporal(TemporalType.TIMESTAMP)
 	@Column(name="creationdate", insertable=false)
@@ -115,12 +109,8 @@ public class Recipe {
 		this.bakingDuration = bakingDuration;
 	}
 
-	public Set<Ingredient> getIngredients() {
+	public Set<RecipeIngredient> getIngredients() {
 		return ingredients;
-	}
-
-	public void setIngredients(Set<Ingredient> ingredients) {
-		this.ingredients = ingredients;
 	}
 
 	public Date getCreationDate() {
@@ -135,12 +125,12 @@ public class Recipe {
 	public void preUpdate() {
 		modificationDate = new Date();
 	}
-	
+
 	@Override
 	public int hashCode() {
 		final int prime = 31;
 		int result = 1;
-		result = prime * result + ((getId() == null) ? 0 : getId().hashCode());
+		result = prime * result + ((id == null) ? 0 : id.hashCode());
 		result = prime * result + ((name == null) ? 0 : name.hashCode());
 		return result;
 	}
@@ -154,10 +144,10 @@ public class Recipe {
 		if (getClass() != obj.getClass())
 			return false;
 		Recipe other = (Recipe) obj;
-		if (getId() == null) {
-			if (other.getId() != null)
+		if (id == null) {
+			if (other.id != null)
 				return false;
-		} else if (!getId().equals(other.getId()))
+		} else if (!id.equals(other.id))
 			return false;
 		if (name == null) {
 			if (other.name != null)
@@ -165,17 +155,6 @@ public class Recipe {
 		} else if (!name.equals(other.name))
 			return false;
 		return true;
-	}
-
-	@Override
-	public String toString() {
-		StringBuilder builder = new StringBuilder();
-		builder.append("Recipe [id=").append(id).append(", name=").append(name).append(", author=").append(author)
-				.append(", mealtype=").append(mealtype).append(", preparationDuration=").append(preparationDuration)
-				.append(", bakingDuration=").append(bakingDuration).append(", ingredients=").append(ingredients)
-				.append(", creationDate=").append(creationDate).append(", modificationDate=").append(modificationDate)
-				.append("]");
-		return builder.toString();
 	}
 	
 }

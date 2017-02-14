@@ -9,22 +9,22 @@ import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
 
 @Entity
-@Table(name="mealtype")
-public final class MealType {
+@Table(name="volumeunit")
+public final class VolumeUnit {
 
 	@Id
-	@SequenceGenerator(name="mealtype_sequence", sequenceName="mealtype_id_sequence")
-	@GeneratedValue(strategy=GenerationType.SEQUENCE, generator="mealtype_sequence")
+	@SequenceGenerator(name="volumeunit_sequence", sequenceName="volumeunit_id_sequence")
+	@GeneratedValue(strategy=GenerationType.SEQUENCE, generator="volumeunit_sequence")
 	private Integer id;
 	
 	@Column
 	private String name;
 
-	public MealType() {
+	public VolumeUnit() {
 		super();
 	}
 
-	public MealType(String name) {
+	public VolumeUnit(String name) {
 		this.name = name;
 	}
 
@@ -57,7 +57,7 @@ public final class MealType {
 			return false;
 		if (getClass() != obj.getClass())
 			return false;
-		MealType other = (MealType) obj;
+		VolumeUnit other = (VolumeUnit) obj;
 		if (id == null) {
 			if (other.id != null)
 				return false;
