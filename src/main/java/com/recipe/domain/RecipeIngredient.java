@@ -2,6 +2,7 @@ package com.recipe.domain;
 
 import java.util.Date;
 
+import javax.persistence.Column;
 import javax.persistence.EmbeddedId;
 import javax.persistence.Entity;
 import javax.persistence.JoinColumn;
@@ -17,6 +18,14 @@ public class RecipeIngredient {
 	@EmbeddedId
 	private RecipeIngredientId id;
 
+	@ManyToOne
+	@JoinColumn(name="recipeid", referencedColumnName="id", insertable=false, updatable=false)
+	private Ingredient recipe;
+
+	@ManyToOne
+	@JoinColumn(name="ingredientid", referencedColumnName="id", insertable=false, updatable=false)
+	private Ingredient ingredient;
+
 	private Integer quantity;
 	
 	@ManyToOne
@@ -24,6 +33,7 @@ public class RecipeIngredient {
 	private VolumeUnit quantityUnit;
 	
 	@Temporal(TemporalType.TIMESTAMP)
+	@Column(name="modificationdate")
 	private Date modificationDate;
 
 	public RecipeIngredient() {
@@ -63,7 +73,7 @@ public class RecipeIngredient {
 	public Date getModificationDate() {
 		return modificationDate;
 	}
-	
+
 	@Override
 	public int hashCode() {
 		final int prime = 31;
@@ -87,6 +97,12 @@ public class RecipeIngredient {
 		} else if (!id.equals(other.id))
 			return false;
 		return true;
+	}
+
+	@Override
+	public String toString() {
+		return "RecipeIngredient [id=" + id + ", ingredient=" + ingredient + ", quantity=" + quantity
+				+ ", quantityUnit=" + quantityUnit + ", modificationDate=" + modificationDate + "]";
 	}
 	
 }

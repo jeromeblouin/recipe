@@ -2,23 +2,20 @@ package com.recipe.domain;
 
 import java.io.Serializable;
 
+import javax.persistence.Column;
 import javax.persistence.Embeddable;
-import javax.persistence.JoinColumn;
-import javax.persistence.ManyToOne;
 
 @Embeddable
 public class RecipeIngredientId implements Serializable {
 
-	private static final long serialVersionUID = 693036606147906421L;
+	private static final long serialVersionUID = -6148492350730393781L;
 
-	@ManyToOne
-	@JoinColumn(name="recipeid")
-	private Integer recipeId;
+	@Column(name="recipeid")
+	public Integer recipeId;
 
-	@ManyToOne
-	@JoinColumn(name="ingredientid")
-	private Integer ingredientId;
-
+	@Column(name="ingredientid")
+	public Integer ingredientId;
+	
 	public RecipeIngredientId() {
 		super();
 	}
@@ -32,8 +29,16 @@ public class RecipeIngredientId implements Serializable {
 		return recipeId;
 	}
 
+	public void setRecipeId(Integer recipeId) {
+		this.recipeId = recipeId;
+	}
+
 	public Integer getIngredientId() {
 		return ingredientId;
+	}
+
+	public void setIngredientId(Integer ingredientId) {
+		this.ingredientId = ingredientId;
 	}
 
 	@Override
@@ -66,5 +71,5 @@ public class RecipeIngredientId implements Serializable {
 			return false;
 		return true;
 	}
-
+	
 }

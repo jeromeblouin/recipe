@@ -3,6 +3,7 @@ package com.recipe.domain;
 import java.util.Date;
 import java.util.Set;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -38,7 +39,7 @@ public class Recipe {
 	@Column(name="bakingduration")
 	private Integer bakingDuration;
 	
-	@OneToMany
+	@OneToMany(mappedBy="ingredient", cascade=CascadeType.ALL, targetEntity=RecipeIngredient.class)
 	private Set<RecipeIngredient> ingredients;
 	
 	@Temporal(TemporalType.TIMESTAMP)

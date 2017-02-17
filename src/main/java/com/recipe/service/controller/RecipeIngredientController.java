@@ -11,8 +11,8 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.google.common.collect.Sets;
-import com.recipe.domain.Ingredient;
 import com.recipe.domain.Recipe;
+import com.recipe.domain.RecipeIngredient;
 import com.recipe.repository.RecipeRepository;
 
 @RestController
@@ -27,25 +27,27 @@ public class RecipeIngredientController {
 		this.recipeRepository = recipeRepository;
 	}
 	
-//	@GetMapping
-//	public Set<Ingredient> getIngredients(@PathVariable int recipeId) {
-//		Recipe recipe = recipeRepository.findOne(recipeId);
-//		if(recipe != null) {
-//			return recipe.getIngredients();
-//		} else {
-//			return null;
-//		}
-//	}
-//	
-//	@PutMapping
-//	public Recipe updateIngredients(@PathVariable int recipeId, @RequestBody Set<Ingredient> ingredients) {
-//		Recipe recipe = recipeRepository.findOne(recipeId);
-//		if(recipe != null) {
-//			recipe.getIngredients().clear();
-//			recipe.getIngredients().addAll(Sets.newHashSet(ingredients));
-//			return recipeRepository.save(recipe);
-//		} else {
-//			return null;
-//		}
-//	}
+	@GetMapping
+	public Set<RecipeIngredient> getIngredients(@PathVariable int recipeId) {
+		Recipe recipe = recipeRepository.findOne(recipeId);
+		if(recipe != null) {
+			return recipe.getIngredients();
+		} else {
+			return null;
+		}
+	}
+	
+	@PutMapping
+	public Recipe updateIngredients(@PathVariable int recipeId, @RequestBody Set<RecipeIngredient> ingredients) {
+		Recipe recipe = recipeRepository.findOne(recipeId);
+		if(recipe != null) {
+			ingredients.stream()
+				.forEach(i -> i.getId().setRecipeId(recipeId));
+			recipe.getIngredients().clear();
+			recipe.getIngredients().addAll(Sets.newHashSet(ingredients));
+			return recipeRepository.save(recipe);
+		} else {
+			return null;
+		}
+	}
 }
