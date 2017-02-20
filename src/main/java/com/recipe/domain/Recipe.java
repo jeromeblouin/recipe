@@ -6,6 +6,7 @@ import java.util.Set;
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
@@ -39,7 +40,7 @@ public class Recipe {
 	@Column(name="bakingduration")
 	private Integer bakingDuration;
 	
-	@OneToMany(mappedBy="ingredient", cascade=CascadeType.ALL, targetEntity=RecipeIngredient.class)
+	@OneToMany(mappedBy="recipe", cascade=CascadeType.ALL, targetEntity=RecipeIngredient.class, fetch=FetchType.EAGER, orphanRemoval=true)
 	private Set<RecipeIngredient> ingredients;
 	
 	@Temporal(TemporalType.TIMESTAMP)

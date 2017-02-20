@@ -20,7 +20,7 @@ public class RecipeIngredient {
 
 	@ManyToOne
 	@JoinColumn(name="recipeid", referencedColumnName="id", insertable=false, updatable=false)
-	private Ingredient recipe;
+	private Recipe recipe;
 
 	@ManyToOne
 	@JoinColumn(name="ingredientid", referencedColumnName="id", insertable=false, updatable=false)
