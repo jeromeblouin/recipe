@@ -32,7 +32,7 @@ public class RecipeController {
 	
 	@GetMapping("/{id}")
 	public Recipe getRecipe(@PathVariable int id) {
-		return recipeRepository.findOne(id);
+		return recipeRepository.findById(id);
 	}
 	
 	@GetMapping
